@@ -3,7 +3,7 @@
     "composer": "^0.20.9"
   },
   "name": "file_trade",
-  "version": "0.2.8",
+  "version": "0.3.7",
   "description": "Test Hyperledger Composer Project",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/file_trade.bna",

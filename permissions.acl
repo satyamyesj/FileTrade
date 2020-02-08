@@ -15,6 +15,53 @@
 /**
  * Sample access control list.
  */
+
+rule ADMIN_RULE{
+    description: "Only admin is allowed to create file owners"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: CREATE
+    resource: "org.fileco.com.FileOwner"
+    action: ALLOW
+}
+
+
+rule GRANT_ACCESS_RULE{
+  description: "only owner of file can grant access to file"
+    participant(p): "org.fileco.com.FileOwner"
+    operation: ALL
+    resource (r): "org.fileco.com.GrantAccess"
+    condition: (p.peerId==r.pendinRequest.file.owner.peerId)
+    action: ALLOW
+}
+
+rule PENDING_REQUEST_RULE{
+  description: "only owner of file can grant access to file"
+    participant(p): "org.fileco.com.FileOwner"
+    operation: ALL
+    resource (r): "org.fileco.com.PendingRequest"
+    condition: (p.peerId==r.file.owner.peerId)
+    action: ALLOW
+}
+
+
+rule PENDING_REQUEST_RULE2{
+  description: "only owner of file can grant access to file"
+    participant(p): "org.fileco.com.FileOwner"
+    operation: ALL
+    resource (r): "org.fileco.com.PendingRequest"
+    condition: (p.peerId!=r.file.owner.peerId)
+    action: DENY
+}
+
+
+rule FILE_A_READ_TO_ALL{
+  description: "only owner of file can grant access to file"
+    participant: "org.fileco.com.**"
+    operation: ALL
+    resource: "org.fileco.com.FileA"
+    action: ALLOW
+}
+
 // rule EverybodyCanReadEverything {
 //     description: "Allow all participants read access to all resources"
 //     participant: "org.fileco.com.SampleParticipant"

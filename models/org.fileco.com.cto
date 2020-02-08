@@ -61,8 +61,9 @@ transaction GrantAccess {
   --> PendingRequest pendingRequest
 }
 
-// event SampleEvent {
-  
-//   o String oldValue
-//   o String newValue
-// }
+event SampleEvent {
+  o String requestId
+  o String rightType
+  --> FileA file
+  --> FileUser user
+}
